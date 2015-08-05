@@ -10,4 +10,7 @@ A NodeJS Application
 
 ## Tools
 
-@Date - 05-Aug-2015
+
+### Heroku App URL - http://v-lookup-2015.herokuapp.com/
+
+### Local App URL - http://localhost:5000/
