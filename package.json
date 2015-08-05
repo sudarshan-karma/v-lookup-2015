@@ -1,12 +1,28 @@
 {
   "name": "v-lookup-2015",
   "version": "0.0.1",
+  "description": "A NodeJS application for performing vLookup functionality used in Excel",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
+    "pg": "4.x",
+    "ejs": "^2.3.1",
     "express": "3.2.6",
     "jade": "*"
-  }
+  },
+  "engines": {
+    "node": "0.12.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "vlookup",
+    "express"
+  ],
+  "license": "MIT"
 }
