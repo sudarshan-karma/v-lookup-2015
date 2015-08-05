@@ -1,4 +1,4 @@
-# vLookup 2015
+# vLookup
 Simplify the vLookup functionality in excel from user interaction perspective and making it more informative
 
 
@@ -7,7 +7,7 @@ Simplify the vLookup functionality in excel from user interaction perspective an
 
 
 ## Developing
-
+A NodeJS Application
 
 
 ## Tools
