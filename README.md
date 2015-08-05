@@ -3,7 +3,7 @@ Simplify the vLookup functionality in excel from user interaction perspective an
 
 
 ## Usage
-
+TODO: BI functionality
 
 ## Developing
 A NodeJS Application
