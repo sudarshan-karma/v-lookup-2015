@@ -1,5 +1,37 @@
 extends layout
 
+block append head
+	link(rel='stylesheet', href='/stylesheets/dropzone.css')
+	link(rel="script", href="/js/dropzone.js")
+	script.
+		Dropzone.autoDiscover = false;
+
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title 
+	
+	p 
+		b Welcome 
+		| 
+		i to 
+		u #{title}
+	hr
+	
+	div#dropzone
+		form.dropzone(name="dropFileTest", action="/", method="post")
+			div.dz-message.
+				Drop files here or Click to upload <br>
+				This is demo implementation of Dropzone
+				
+//	
+	script.
+		var myDropzone = new Dropzone('.dropzone');
+
+		// Create the mock file:
+		var mockFile = { name: "Filename", size: 12345 };
+		
+		// Call the default addedfile event handler:
+		myDropzone.emit("addedfile", mockFile)
+		
+		// And optionally show the thumbnail of the file:
+		myDropzone.createThumbnailFromUrl(mockFile, 'penclchk.gif')
+		
