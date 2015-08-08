@@ -1,37 +1,34 @@
 extends layout
 
 block append head
+	link(rel='stylesheet', href='/stylesheets/basic.css')
 	link(rel='stylesheet', href='/stylesheets/dropzone.css')
-	link(rel="script", href="/js/dropzone.js")
-	script.
-		Dropzone.autoDiscover = false;
+	script(src='/js/dropzone.js')
 
+	script.
+		Dropzone.options.xlDropzone = {
+			 maxFileSize: 5,
+			 acceptedFiles: ".xls, .xlsx, .xlsm, xlsb, .ods, .csv, xml",
+		}
+		
+		
 block content
-	h1= title 
-	
-	p 
-		b Welcome 
-		| 
-		i to 
-		u #{title}
-	hr
-	
-	div#dropzone
-		form.dropzone(name="dropFileTest", action="/", method="post")
-			div.dz-message.
-				Drop files here or Click to upload <br>
-				This is demo implementation of Dropzone
-				
-//	
-	script.
-		var myDropzone = new Dropzone('.dropzone');
 
-		// Create the mock file:
-		var mockFile = { name: "Filename", size: 12345 };
+	div.container-top
+		h1= title
 		
-		// Call the default addedfile event handler:
-		myDropzone.emit("addedfile", mockFile)
+		p 
+			b Welcome 
+			| 
+			i to 
+			u #{title}
 		
-		// And optionally show the thumbnail of the file:
-		myDropzone.createThumbnailFromUrl(mockFile, 'penclchk.gif')
-		
+	div.container-center.
+	
+	div.container-right
+		div
+			form#xlDropzone.dropzone.dz-clickable(name="dropFileTest", action="/", method="post")
+				div.dz-message.dz-default.
+					Drop files here or Click to upload <br><br>
+					
+			
