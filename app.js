@@ -1,7 +1,7 @@
 var express = require('express')
 	, routes = require('./routes')
-	, user = require('./routes/user');
-//	, dropzone = require('dropzone');
+	, user = require('./routes/user')
+	, xlUpload = require('./routes/xlUpload');
 
 var app = express();
 
@@ -16,6 +16,7 @@ app.set('view engine', 'jade');
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.post('/xlUpload', xlUpload.processUpload);
 
 
 /*
