@@ -34,10 +34,10 @@ block content
 		
 		// Do something when a user chooses or drops a file:
 		zone.event('send', function (files) {
-		
+		 	
 		  // FileList might contain multiple items.
 		  files.each(function (file) {
-		  
+				
 		  	// Reset the progress when a new upload starts:
 		    file.event('sendXHR', function () {
 		      fd.byID('progress-bar').style.width = 0

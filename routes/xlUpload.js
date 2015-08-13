@@ -2,45 +2,44 @@
  * xlUpload - process the file upload to the server
  */
 
-var fs = require('fs');
+var fs = require('fs'),
+	multer  = require('multer');
 
-var msg;
+var done = false;
+
+app.use(multer({ dest: './uploads/',
+	 rename: function (fieldname, filename) {
+	    return filename+Date.now();
+	  },
+	onFileUploadStart: function (file) {
+	  console.log(file.originalname + ' is starting ...');
+	},
+	onFileUploadComplete: function (file) {
+	  console.log(file.fieldname + ' uploaded to  ' + file.path);
+	  done=true;
+	}
+	}));
+
 
 exports.processUpload = function(req, res){
-	console.log("Processing file upload...");
+	console.log("Processing file upload..."+req.files.file.name);
 	
-	if(req.files != undefined){
-
-		msg = req.files.file.filename;
-		
-	}
-	else {
-		 msg = 'no file uploaded';
-	}
+	if(done==true){
+	    console.log(req.files);
+	    res.end("File uploaded.");
+	  }
 	
-	console.log(req.files);
-	
-	/* 
-	if(req.files != undefined){
-		
-		fs.readFile(req.files.file.path, function(err, data){
-			
-			if(err) throw err;
-			
-			console.log(data);
-			
-			var fileName = req.files.filename;
-			
-			res.render('index', { title: 'vLookup', message: fileName });
-		});
-		
-	}
-	else {
-		res.render('index', { title: 'vLookup', message: 'no file uploaded'});
-	}
-	
-	
-	*/
-	
+    
+	/*  
+      busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
+        console.log('Field [' + fieldname + ']: value: ' + inspect(val));
+      });
+      
+      busboy.on('finish', function() {
+        console.log('Done parsing form!');
+        res.writeHead(303, { Connection: 'close', Location: '/' });
+        res.end();
+      });*/
+      
 	
 };

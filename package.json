@@ -11,8 +11,8 @@
     "ejs": "^2.3.1",
     "express": "3.2.6",
     "jade": "*",
-    "dropzone": "*",
-    "xlsx": "*"
+    "xlsx":"*",
+    "multer": "*"
   },
   "engines": {
     "node": "0.12.2"
