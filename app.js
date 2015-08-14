@@ -1,14 +1,12 @@
 var express = require('express')
 	, routes = require('./routes')
 	, user = require('./routes/user')
-	, xlUpload = require('./routes/xlUpload');
+	, xlUpload = require('./routes/xlUpload')
+	, multer  = require('multer');
 
 var app = express();
-
-app.use(app.router);
-app.set('port', (process.env.PORT || 5000));
-
 app.use(express.static(__dirname + '/public'));
+app.set('port', (process.env.PORT || 5000));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -16,8 +14,44 @@ app.set('view engine', 'jade');
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.post('/xlUpload', xlUpload.processUpload);
+ 
+var done = false;
 
+var upload = multer({
+	 dest: './public/upload/',
+	 limits: {
+	        fieldNameSize: 50,
+	        files: 1,
+	        fields: 5,
+	        fileSize: 1024 * 1024
+	    },
+	 rename: function (fieldname, filename) {
+	    return filename+Date.now();
+	  },
+	onFileUploadStart: function (file) {
+	  console.log(file.originalname + ' is starting ...');
+	 /* if(file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+          return false;
+      }*/
+	},
+	onFileUploadComplete: function (file) {
+	  console.log(file.fieldname + ' uploaded to  ' + file.path);
+	  done=true;
+	},
+	inMemory: true
+});
+
+app.post('/xlUpload', upload, function(req, res){
+	
+	console.log(req.files.fileUpload.name);
+	
+	res.send(req.files.fileUpload.name);
+
+	/*if(done==true){
+	    console.log(req.files);
+	    res.end("File uploaded.");
+	  }*/
+});
 
 /*
 

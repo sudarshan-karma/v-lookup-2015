@@ -19,58 +19,87 @@ block content
 	div.container-center.
 	
 	div.container-right
+		form#xlUpload(enctype   =  "multipart/form-data" action="/xlUpload" method="POST")
+			input(type="file" name="fileUpload")
+			input(type="submit" name="submit" value="Upload")
+			
+	script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+	script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js")
+	
+	script.
+		$(document).ready(function() {
+
+		$('#xlUpload').submit(function() {
+		
+		        $(this).ajaxSubmit({
+		
+		            error: function(xhr) {
+				            status('Error: ' + xhr.status);
+		            },
+		
+		            success: function(response) {
+		            		 console.log(response);
+		
+		            		 alert(response);
+		            }
+			});
+		
+			return false;
+		    });
+		});
+
+
+	//
 		fieldset#xlDrop.fd-zone
 			p.legend Drop a file or <em>Browse</em>
 			p.progress
 				span#progress-bar
-
-	script.
-		
-		// We can deal with iframe uploads using this URL:
-		var options = {iframe: {url: '/xlUpload'}};
-		
-		// 'zone' is an ID but you can also give a DOM node:
-		var zone = new FileDrop('xlDrop', options);
-		
-		// Do something when a user chooses or drops a file:
-		zone.event('send', function (files) {
-		 	
-		  // FileList might contain multiple items.
-		  files.each(function (file) {
-				
-		  	// Reset the progress when a new upload starts:
-		    file.event('sendXHR', function () {
-		      fd.byID('progress-bar').style.width = 0
-		    })
-		
-		    // Update progress when browser reports it:
-		    file.event('progress', function (current, total) {
-		      var width = current / total * 100 + '%'
-		      fd.byID('progress-bar').style.width = width
-		    })	
-
-		  	// React on successful AJAX upload:
-		    file.event('done', function (xhr) {
-		      // Here, 'this' points to fd.File instance.
-		      alert(xhr.responseText)
-		    })
-			
-			file.event('error', function (e, xhr) {
-		      
-		      if (xhr.readyState == 4 && !xhr.status) {
-		        alert('Timeout reached, request aborted.')
-		      } else {
-		        alert(xhr.status + ', ' + xhr.statusText)
-		      }
-		    })	
-		
-		
-		    // Send the file:
-		    file.sendTo('/xlUpload');
-		
-		  });
-		});
-
 	
+		script.
+			
+			// We can deal with iframe uploads using this URL:
+			var options = {iframe: {url: '/xlUpload'}};
+			
+			// 'zone' is an ID but you can also give a DOM node:
+			var zone = new FileDrop('xlDrop', options);
+			
+			// Do something when a user chooses or drops a file:
+			zone.event('send', function (files) {
+			 	
+			  // FileList might contain multiple items.
+			  files.each(function (file) {
+					
+			  	// Reset the progress when a new upload starts:
+			    file.event('sendXHR', function () {
+			      fd.byID('progress-bar').style.width = 0
+			    })
+			
+			    // Update progress when browser reports it:
+			    file.event('progress', function (current, total) {
+			      var width = current / total * 100 + '%'
+			      fd.byID('progress-bar').style.width = width
+			    })	
+	
+			  	// React on successful AJAX upload:
+			    file.event('done', function (xhr) {
+			      // Here, 'this' points to fd.File instance.
+			      alert(xhr.responseText)
+			    })
+				
+				file.event('error', function (e, xhr) {
+			      
+			      if (xhr.readyState == 4 && !xhr.status) {
+			        alert('Timeout reached, request aborted.')
+			      } else {
+			        alert(xhr.status + ', ' + xhr.statusText)
+			      }
+			    })	
+			
+			
+			    // Send the file:
+			    file.sendTo('/xlUpload');
+			
+			  });
+			});
 					
 	p #{message}		

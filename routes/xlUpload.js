@@ -2,44 +2,34 @@
  * xlUpload - process the file upload to the server
  */
 
-var fs = require('fs'),
-	multer  = require('multer');
-
-var done = false;
-
-app.use(multer({ dest: './uploads/',
-	 rename: function (fieldname, filename) {
-	    return filename+Date.now();
-	  },
-	onFileUploadStart: function (file) {
-	  console.log(file.originalname + ' is starting ...');
-	},
-	onFileUploadComplete: function (file) {
-	  console.log(file.fieldname + ' uploaded to  ' + file.path);
-	  done=true;
-	}
-	}));
-
+var fs = require('fs');
 
 exports.processUpload = function(req, res){
-	console.log("Processing file upload..."+req.files.file.name);
+
+	res.send(req.files.file.name);
 	
-	if(done==true){
-	    console.log(req.files);
-	    res.end("File uploaded.");
-	  }
+	/*var file = req.files.file,
+    path = './public/upload/';
+
+	// Logic for handling missing file, wrong mimetype, no buffer, etc.
 	
-    
-	/*  
-      busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
-        console.log('Field [' + fieldname + ']: value: ' + inspect(val));
-      });
-      
-      busboy.on('finish', function() {
-        console.log('Done parsing form!');
-        res.writeHead(303, { Connection: 'close', Location: '/' });
-        res.end();
-      });*/
-      
-	
+	var buffer = file.buffer, //Note: buffer only populates if you set inMemory: true.
+	    fileName = file.name;
+	var stream = fs.createWriteStream(path + fileName);
+	stream.write(buffer);
+	stream.on('error', function(err) {
+	    console.log('Could not write file to memory.');
+	    res.status(400).send({
+	        message: 'Problem saving the file. Please try again.'
+	    });
+	});
+	stream.on('finish', function() {
+	    console.log('File saved successfully.');
+	    var data = {
+	        message: 'File saved successfully.'
+	    };
+	    res.jsonp(data);
+	});
+	stream.end();
+	console.log('Stream ended.');	*/
 };
