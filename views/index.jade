@@ -16,8 +16,39 @@ block content
 			i to 
 			u #{title}
 		
-	div.container-center.
-	
+	div.container-center
+		div.sheets
+			div.sheet
+				input(type="radio" id="sheet-1" name="sheet-group" checked)
+				label(for="sheet-1") Sheet 1
+				
+				div.data
+					table
+						- for (var t = 0; t < 20; t++)
+							if t==0
+								th(id="r"+t)
+									- for ( var d = 0; d < 26; d++)
+										th(id="r"+t+"c"+d)
+							else
+								tr(id="r"+t)
+									- for ( var d = 0; d < 27; d++)
+										if d==0
+											th(id="r"+t+"c"+d)
+										else	
+											td(id="r"+t+"c"+d)						
+					
+					p#message
+					
+					script.
+						var table = $("table tbody");
+
+			div.sheet
+				input(type="radio" id="sheet-2" name="sheet-group")
+				label(for="sheet-2") Sheet 2
+				
+				div.data
+					| data 2					
+
 	div.container-right
 		form#xlUpload(enctype   =  "multipart/form-data" action="/xlUpload" method="POST")
 			input(type="file" name="fileUpload")
@@ -40,10 +71,10 @@ block content
 		            success: function(response) {
 		            		 console.log(response);
 		
-		            		 alert(response);
+		            		 $("#message").html(response);
 		            }
 			});
-		
+			
 			return false;
 		    });
 		});
@@ -100,6 +131,4 @@ block content
 			    file.sendTo('/xlUpload');
 			
 			  });
-			});
-					
-	p #{message}		
+			});	

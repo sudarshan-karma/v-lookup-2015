@@ -17,6 +17,7 @@ a {
     text-align: center;
 }
 
+/** Worksheet CSS layout **/
 .container-center {
     position: absolute;
     top: 100px;
@@ -25,8 +26,67 @@ a {
     width: 89%;
     border-style: groove;
     border-color: blanchedalmond;
-    border-width: thick
+    border-width: thick;
 }
+
+.sheets {
+  position: relative;   
+  min-height: 600px; 
+  clear: both;
+  margin: 5px 0;
+}
+.sheet {
+  float: left;
+}
+.sheet label {
+  background: #eee; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  margin-left: -1px; 
+  position: relative;
+  left: 1px; 
+}
+.sheet [type=radio] {
+  display: none;   
+}
+.data {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  background: white;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #ccc;
+  overflow: scroll; 
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+td, th {
+	border: 1px solid black;
+	width: 50px;
+	height: 20px;	
+}
+
+th {
+  background: lightblue;
+  border-color: white;
+  border: 1px solid black;
+}
+
+[type=radio]:checked ~ label {
+  background: white;
+  border-bottom: 1px solid white;
+  z-index: 2;
+}
+[type=radio]:checked ~ label ~ .data {
+  z-index: 1;
+}
+
+/** End of Worksheet CSS **/
 
 .container-right {
 	position: absolute;
