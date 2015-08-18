@@ -24,30 +24,26 @@ block content
 				
 				div.data
 					table
-						- for (var t = 0; t < 20; t++)
+						- for (var t = 0; t < 21; t++)
 							if t==0
 								th(id="r"+t)
-									- for ( var d = 0; d < 26; d++)
-										th(id="r"+t+"c"+d)
+									- for ( var c = 65; c < 91; c++)
+										th(id="_"+t)= String.fromCharCode(c)
 							else
 								tr(id="r"+t)
-									- for ( var d = 0; d < 27; d++)
-										if d==0
-											th(id="r"+t+"c"+d)
-										else	
-											td(id="r"+t+"c"+d)						
-					
-					p#message
-					
-					script.
-						var table = $("table tbody");
+									- for ( var c = 64; c < 91; c++)
+										if c==64
+											th(id="_"+t)= t
+												
+										else
+											td(id=String.fromCharCode(c)+t)						
 
 			div.sheet
 				input(type="radio" id="sheet-2" name="sheet-group")
 				label(for="sheet-2") Sheet 2
 				
 				div.data
-					| data 2					
+					p#message					
 
 	div.container-right
 		form#xlUpload(enctype   =  "multipart/form-data" action="/xlUpload" method="POST")
@@ -67,11 +63,26 @@ block content
 		            error: function(xhr) {
 				            status('Error: ' + xhr.status);
 		            },
-		
-		            success: function(response) {
-		            		 console.log(response);
-		
-		            		 $("#message").html(response);
+					contentType: "application/json",
+					dataType: 'json',
+		            success: function(xl) {
+					//		console.log(JSON.stringify(xl.sheets));
+		         			
+							var d = "";	
+							$.each(xl.sheets, function(c, v){
+					//			console.log( c + " : " + v)
+								var s = c; // Sheet name
+								
+								//Iterating through JSON map
+								$.each(v, function(l, t){
+					//				console.log( l + " - "+t )
+									if ( l !== "!ref")
+										$("#"+l).html(t)
+								}); 
+							});	
+	           				
+							$("#message").html(d);		
+		           
 		            }
 			});
 			

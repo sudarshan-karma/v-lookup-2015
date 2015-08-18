@@ -40,22 +40,33 @@ exports.processUpload = function(req, res){
 	var workbook = XLSX.readFile(req.files.fileUpload.path);
 	
 	var sheet_name_list = workbook.SheetNames;
-	var xlValues = "";
+	var m = {};
 	
 	sheet_name_list.forEach(function(y) { /* iterate through sheets */
 	  var worksheet = workbook.Sheets[y];
+	  var x = {};
+	  
 	  for (z in worksheet) {
+		 
 	    /* all keys that do not begin with "!" correspond to cell addresses */
-	    if(z[0] === '!') continue;
+	    if(z[0] === '!') {
+	    	x[z] = worksheet['!ref'];
+	    	continue;
+	    }
 	    console.log(y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
-	    
-	    xlValues += JSON.stringify(  y + "!" + z + "=" + JSON.stringify(worksheet[z].v) );
+	     x[z] = worksheet[z].v;
 	  }
+	  
+	  m[y] = x;
+	  
+//	 console.log("***********************************************************");
+//	 console.log(XLSX.utils.sheet_to_json(worksheet));
+	  
 	});
 
 	if(done==true){
 	    console.log(req.files);
-	    res.end("File uploaded ==>"+req.files.fileUpload.name+" \n "+xlValues);
+	    res.end(JSON.stringify({'sheets': m}) );
 	  }
 	
 };
