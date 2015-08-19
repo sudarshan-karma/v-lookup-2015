@@ -38,13 +38,6 @@ block content
 										else
 											td(id=String.fromCharCode(c)+t)						
 
-			div.sheet
-				input(type="radio" id="sheet-2" name="sheet-group")
-				label(for="sheet-2") Sheet 2
-				
-				div.data
-					p#message					
-
 	div.container-right
 		form#xlUpload(enctype   =  "multipart/form-data" action="/xlUpload" method="POST")
 			input(type="file" name="fileUpload")
@@ -68,10 +61,39 @@ block content
 		            success: function(xl) {
 					//		console.log(JSON.stringify(xl.sheets));
 		         			
-							var d = "";	
 							$.each(xl.sheets, function(c, v){
 					//			console.log( c + " : " + v)
 								var s = c; // Sheet name
+								
+								var sheet = $("<div/>", {
+									'class': 'sheet'
+								}).appendTo('.sheets');
+
+								$("<input/>",{
+									type: 'radio',
+									id: s,
+									name: 'sheet-group'
+								}).appendTo(sheet);
+								
+								$("<label/>", {
+									for: s,
+									text: s
+								}).appendTo(sheet);
+								
+								var table = $("<table/>").appendTo(sheet);
+								var defaultRowCount = 50;
+								var defaultColRange = 92;
+								
+								if (v['!ref'] != undefined){
+								  var range = v['!ref'].split(':')[1].match(/(\d+|[^\d]+)/g).join('|').split('|');
+								  defaultRowCount = range[1] > defaultRowCount ? range[1] : defaultRowCount
+								  
+								  if(range[0].length == 2 ){
+								    defaultColRange += ( (range[0].charCodeAt(0) - 64 ) * 26) + (range[0].charCodeAt(1) - 64 );  
+								  }
+								}
+								
+					//			console.log(range+":: "+range[0].charCodeAt(0)+" & "+range[0].length+" :: defaultColRange ="+ defaultColRange);
 								
 								//Iterating through JSON map
 								$.each(v, function(l, t){
@@ -80,9 +102,6 @@ block content
 										$("#"+l).html(t)
 								}); 
 							});	
-	           				
-							$("#message").html(d);		
-		           
 		            }
 			});
 			
