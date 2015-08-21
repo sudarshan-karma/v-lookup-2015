@@ -21,7 +21,7 @@ block content
 		
 	div.container-center
 		div.sheets
-		//
+		
 			div.sheet
 				input(type="radio" id="sheet-1" name="sheet-group" checked)
 				label(for="sheet-1") Sheet 1
@@ -42,6 +42,11 @@ block content
 										else
 											td(id=String.fromCharCode(c)+t)						
 
+
+			div.sheet
+				input(type="radio" id="sheet-2" name="sheet-group")
+				label(for="sheet-2") Sheet 2
+				
 	div.container-right
 		form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
 			input(type="file" name="fileUpload")

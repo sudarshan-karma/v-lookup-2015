@@ -30,10 +30,11 @@ a {
 }
 
 .sheets {
-  position: relative;   
-  min-height: 600px; 
-  clear: both;
-  margin: 5px 0;
+	position: relative;   
+	min-height: 600px; 
+	clear: both;
+	margin: 5px 0;
+	overflow: scroll;
 }
 .sheet {
   float: left;
@@ -57,7 +58,7 @@ a {
   right: 0;
   bottom: 0;
   border: 1px solid #ccc;
-  overflow: scroll; 
+  display: none;
 }
 
 table {
@@ -84,6 +85,7 @@ th {
 }
 [type=radio]:checked ~ label ~ .data {
   z-index: 1;
+  display: block;
 }
 
 /** End of Worksheet CSS **/
