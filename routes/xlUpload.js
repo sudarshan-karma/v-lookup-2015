@@ -70,3 +70,58 @@ exports.processUpload = function(req, res){
 	  }
 	
 };
+
+
+
+/**
+ * 
+ * File Drag and Drop code using FileDrop.js
+ * 
+ 
+ // We can deal with iframe uploads using this URL:
+			var options = {iframe: {url: '/xlUpload'}};
+			
+			// 'zone' is an ID but you can also give a DOM node:
+			var zone = new FileDrop('xlDrop', options);
+			
+			// Do something when a user chooses or drops a file:
+			zone.event('send', function (files) {
+			 	
+			  // FileList might contain multiple items.
+			  files.each(function (file) {
+					
+			  	// Reset the progress when a new upload starts:
+			    file.event('sendXHR', function () {
+			      fd.byID('progress-bar').style.width = 0
+			    })
+			
+			    // Update progress when browser reports it:
+			    file.event('progress', function (current, total) {
+			      var width = current / total * 100 + '%'
+			      fd.byID('progress-bar').style.width = width
+			    })	
+	
+			  	// React on successful AJAX upload:
+			    file.event('done', function (xhr) {
+			      // Here, 'this' points to fd.File instance.
+			      alert(xhr.responseText)
+			    })
+				
+				file.event('error', function (e, xhr) {
+			      
+			      if (xhr.readyState == 4 && !xhr.status) {
+			        alert('Timeout reached, request aborted.')
+			      } else {
+			        alert(xhr.status + ', ' + xhr.statusText)
+			      }
+			    })	
+			
+			
+			    // Send the file:
+			    file.sendTo('/xlUpload');
+			
+			  });
+			});	
+			
+			
+			**/

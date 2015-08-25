@@ -8,7 +8,7 @@ a {
 }
 
 .container-top {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     height: 100px;
@@ -17,16 +17,48 @@ a {
     text-align: center;
 }
 
+.container-main {
+	width: 100%;
+}
+
 /** Worksheet CSS layout **/
-.container-center {
-    position: absolute;
-    top: 100px;
+.container-left {
+    position: relative;
+    top: 0;
     left: 0;
-    height: 620px;
-    width: 89%;
+    height: 80%;
+    width: 80%;
+    float:left;
     border-style: groove;
     border-color: blanchedalmond;
     border-width: thick;
+}
+
+.container-left input[type=radio] {
+	display: inline;
+	position: relative;
+	top: 10%;
+	left: 88%;
+	height: 50%;
+}
+
+.container-left label {
+	position: relative;
+	top: 10%;
+	left: 92%;
+}
+
+.upload{
+	position: relative;
+	left: 90%;
+	border: 1px solid black;
+	width: 10%;
+	display: none;	
+}
+
+[type=radio]:checked ~ .upload{
+	display: block;
+	z-index: 2;
 }
 
 .sheets {
@@ -88,21 +120,44 @@ th {
   display: block;
 }
 
+
 /** End of Worksheet CSS **/
 
 .container-right {
-	position: absolute;
-    top: 100px;
-    right: 0;
-    height: 620px;
-    width: 10%;
-    border-style: groove;
+	position: relative;
+	display: inline-block;
+    float: right;
+    height: 80%;
+    width: 15%;
+    overflow: auto;
+}
+
+.container-right div{
+	background: #ccc;
+	height: 100px;
+	border-style: groove;
     border-color: blanchedalmond;
     border-width: thick;
 }
 
+.container-right div:HOVER{
+	background: #eee;
+}
+
+.container-right div form{
+	margin: 45px 10px 10px 15px;
+}
+
+input[type="submit"] {
+	margin: 5px 0 0 0;
+}
+
+input[type="file"] {
+	width: 100%
+}
+
 #footer {
-	position: absolute;
+	position: relative;
 	text-align: -webkit-center;
     bottom: 0px;
     width: 100%;

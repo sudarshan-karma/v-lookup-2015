@@ -18,93 +18,44 @@ block content
 			| 
 			i to 
 			u #{title}
-		
-	div.container-center
-		div.sheets
-		
-			div.sheet
-				input(type="radio" id="sheet-1" name="sheet-group" checked)
-				label(for="sheet-1") Sheet 1
-				
-				div.data
-					table
-						- for (var t = 0; t < 21; t++)
-							if t==0
-								th(id="r"+t)
-									- for ( var c = 65; c < 91; c++)
-										th(id="_"+t)= String.fromCharCode(c)
-							else
-								tr(id="r"+t)
-									- for ( var c = 64; c < 91; c++)
-										if c==64
-											th(id="_"+t)= t
-												
-										else
-											td(id=String.fromCharCode(c)+t)						
 
-
-			div.sheet
-				input(type="radio" id="sheet-2" name="sheet-group")
-				label(for="sheet-2") Sheet 2
-				
-	div.container-right
-		form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
-			input(type="file" name="fileUpload")
-			input(type="submit" name="submit" value="Upload")
+	div.container-main
+		div.container-left
+			div.sheets
+				//
+					div.sheet
+						input(type="radio" id="sheet-1" name="sheet-group" checked)
+						label(for="sheet-1") Sheet 1
+						
+						div.data
+		
+					div.sheet
+						input(type="radio" id="sheet-2" name="sheet-group")
+						label(for="sheet-2") Sheet 2
+					
+		div.container-right
+			div
+				form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
+					input(type="file" name="fileUpload")
+					input(type="submit" name="submit" value="Upload 1")
+		
+			div
+				form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
+					input(type="file" name="fileUpload")
+					input(type="submit" name="submit" value="Upload 2")
+		
+			div
+				form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
+					input(type="file" name="fileUpload")
+					input(type="submit" name="submit" value="Upload 3")
+		
+		
+		script.
+			$(document).ready(app.init);
 	
-	script.
-		$(document).ready(app.init);
-
-
+	
 	//
 		fieldset#xlDrop.fd-zone
 			p.legend Drop a file or <em>Browse</em>
 			p.progress
 				span#progress-bar
-	
-		script.
-			
-			// We can deal with iframe uploads using this URL:
-			var options = {iframe: {url: '/xlUpload'}};
-			
-			// 'zone' is an ID but you can also give a DOM node:
-			var zone = new FileDrop('xlDrop', options);
-			
-			// Do something when a user chooses or drops a file:
-			zone.event('send', function (files) {
-			 	
-			  // FileList might contain multiple items.
-			  files.each(function (file) {
-					
-			  	// Reset the progress when a new upload starts:
-			    file.event('sendXHR', function () {
-			      fd.byID('progress-bar').style.width = 0
-			    })
-			
-			    // Update progress when browser reports it:
-			    file.event('progress', function (current, total) {
-			      var width = current / total * 100 + '%'
-			      fd.byID('progress-bar').style.width = width
-			    })	
-	
-			  	// React on successful AJAX upload:
-			    file.event('done', function (xhr) {
-			      // Here, 'this' points to fd.File instance.
-			      alert(xhr.responseText)
-			    })
-				
-				file.event('error', function (e, xhr) {
-			      
-			      if (xhr.readyState == 4 && !xhr.status) {
-			        alert('Timeout reached, request aborted.')
-			      } else {
-			        alert(xhr.status + ', ' + xhr.statusText)
-			      }
-			    })	
-			
-			
-			    // Send the file:
-			    file.sendTo('/xlUpload');
-			
-			  });
-			});	
