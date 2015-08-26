@@ -34,22 +34,22 @@ block content
 						label(for="sheet-2") Sheet 2
 					
 		div.container-right
-			div
-				form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
+			div#upload1
+				form#xlUpload1(enctype="multipart/form-data" action="/xlUpload" method="POST")
 					input(type="file" name="fileUpload")
-					input(type="submit" name="submit" value="Upload 1")
+					input(type="submit" name="upload" value="Upload")
 		
-			div
-				form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
+			div#upload2
+				form#xlUpload2(enctype="multipart/form-data" action="/xlUpload" method="POST")
 					input(type="file" name="fileUpload")
-					input(type="submit" name="submit" value="Upload 2")
+					input(type="submit" name="upload" value="Upload")
 		
-			div
-				form#xlUpload(enctype="multipart/form-data" action="/xlUpload" method="POST")
+			div#upload3
+				form#xlUpload3(enctype="multipart/form-data" action="/xlUpload" method="POST")
 					input(type="file" name="fileUpload")
-					input(type="submit" name="submit" value="Upload 3")
-		
-		
+					input(type="submit" name="upload" value="Upload")
+	
+			
 		script.
 			$(document).ready(app.init);
 	

@@ -13,7 +13,6 @@ exports.upload = multer({
 	 dest: __dirname + '/upload/',
 	 limits: {
 	        fieldNameSize: 50,
-	        files: 1,
 	        fields: 5,
 	        fileSize: 1024 * 1024
 	    },
@@ -36,7 +35,7 @@ exports.upload = multer({
 
 exports.processUpload = function(req, res){
 
-	console.log(req.files.fileUpload.name);
+	console.log(req.files);
 	var workbook = XLSX.readFile(req.files.fileUpload.path);
 	
 	var sheet_name_list = workbook.SheetNames;

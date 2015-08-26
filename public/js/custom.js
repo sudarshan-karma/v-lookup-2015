@@ -6,7 +6,9 @@
 var app = new Object();
 
 app.init = function(){
-	$('#xlUpload').submit(app.post);
+	$('#xlUpload1').submit(app.post);
+	$('#xlUpload2').submit(app.post);
+	$('#xlUpload3').submit(app.post);
 };
 
 app.post = function(e){
@@ -26,12 +28,13 @@ app.post = function(e){
         success: app.render
     }); 
     
+    app.updateUploadSec($(this).parent());
 };
 
 
 app.render = function(xl){
-//	console.log(JSON.stringify(xl.sheets));
-
+	// console.log(JSON.stringify(xl.sheets));
+	
 	$.each(xl.sheets, function(c, v){
 //		console.log( c + " : " + v +" @ "+ $(this)[0] );
 		
@@ -142,8 +145,16 @@ app.render = function(xl){
 			if ( l !== "!ref")
 				$("#"+l).html(t)
 		}); 
-	});	
+	});
+	
+}
 
+app.updateUploadSec = function(ele){
+
+	var f = $("input[type='file']").val().split('/').pop().split('\\').pop();
+	
+	$(ele).html(f);
+	
 }
 
 

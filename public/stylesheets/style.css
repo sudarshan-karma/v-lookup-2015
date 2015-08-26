@@ -1,6 +1,6 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 5px;
 }
 
 a {
@@ -27,16 +27,13 @@ a {
     top: 0;
     left: 0;
     height: 80%;
-    width: 80%;
+    width: 84%;
     float:left;
-    border-style: groove;
-    border-color: blanchedalmond;
-    border-width: thick;
+    border: 1px solid black;
 }
 
 .container-left input[type=radio] {
-	display: inline;
-	position: relative;
+ 	position: relative;
 	top: 10%;
 	left: 88%;
 	height: 50%;
@@ -68,9 +65,11 @@ a {
 	margin: 5px 0;
 	overflow: scroll;
 }
+
 .sheet {
   float: left;
 }
+
 .sheet label {
   background: #eee; 
   padding: 10px; 
@@ -126,7 +125,7 @@ th {
 .container-right {
 	position: relative;
 	display: inline-block;
-    float: right;
+    float: left;
     height: 80%;
     width: 15%;
     overflow: auto;
@@ -134,10 +133,8 @@ th {
 
 .container-right div{
 	background: #ccc;
-	height: 100px;
-	border-style: groove;
-    border-color: blanchedalmond;
-    border-width: thick;
+	height: 100px;		
+    border: 1px solid black;
 }
 
 .container-right div:HOVER{
@@ -145,7 +142,7 @@ th {
 }
 
 .container-right div form{
-	margin: 45px 10px 10px 15px;
+	margin: 40px 10px 10px 15px;
 }
 
 input[type="submit"] {
