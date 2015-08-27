@@ -35,7 +35,7 @@ exports.upload = multer({
 
 exports.processUpload = function(req, res){
 
-	console.log(req.files);
+	console.log(req.files.fileUpload.originalname);
 	var workbook = XLSX.readFile(req.files.fileUpload.path);
 	
 	var sheet_name_list = workbook.SheetNames;
@@ -65,7 +65,7 @@ exports.processUpload = function(req, res){
 
 	if(done==true){
 	    console.log(req.files);
-	    res.end(JSON.stringify({'sheets': m}) );
+	    res.end(JSON.stringify({'filename': req.files.fileUpload.originalname, 'sheets': m}) );
 	  }
 	
 };

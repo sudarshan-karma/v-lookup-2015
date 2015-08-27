@@ -15,34 +15,66 @@ app.post = function(e){
 
 	e.preventDefault();	
 	
-    $.ajax({
-    	type: $(this).attr('method'),	
-    	url: $(this).attr('action'),
-    	data: new FormData(this),
-    	processData: false,
-		error: function(xhr) {
-	            status('Error: ' + xhr.status);
-        },
-		contentType: false,
-		dataType: 'json',
-        success: app.render
-    }); 
+	var f = $(this).parent().find("input[type='file']").val().split('/').pop().split('\\').pop();
+	
+	console.log( $("#"+f).length > 0 );
+	
+	if (!app.checkDup(f)){
+		$.ajax({
+	    	type: $(this).attr('method'),	
+	    	url: $(this).attr('action'),
+	    	data: new FormData(this),
+	    	processData: false,
+			error: function(xhr) {
+		            status('Error: ' + xhr.status);
+	        },
+			contentType: false,
+			dataType: 'json',
+	        success: app.render
+	    }); 
+	    
+	    app.updateUploadSec($(this).parent());
+	}
+	else {
+		alert("File uploaded previously! Please upload another file or rename the new file.");
+	}
+
     
-    app.updateUploadSec($(this).parent());
 };
 
 
+app.checkDup = function(l){
+   
+	console.log("Checking for duplicate ==>"+l );
+	
+	if ( $("#"+l).length) {
+		return false;
+	}
+	else{
+		console.log("Found ..."+$(".container-left").find("div").attr("id"));
+		return false;
+	}
+		
+}
+
 app.render = function(xl){
-	// console.log(JSON.stringify(xl.sheets));
+	// console.log(JSON.stringify(xl.filename));
+	
+	app.hideUpload(xl.filename);
+	
+	var sheets =$("<div/>", {
+		'class':'sheets',
+	     id: xl.filename
+	}).appendTo('.container-left');
 	
 	$.each(xl.sheets, function(c, v){
 //		console.log( c + " : " + v +" @ "+ $(this)[0] );
 		
 		var s = c; // Sheet name
-	
+		
 		var sheet = $("<div/>", {
 			'class': 'sheet'
-		}).appendTo('.sheets');
+		}).appendTo(sheets);
 		
 		$("<input/>",{
 			type: 'radio',
@@ -151,13 +183,30 @@ app.render = function(xl){
 
 app.updateUploadSec = function(ele){
 
-	var f = $("input[type='file']").val().split('/').pop().split('\\').pop();
+	var f = $(ele).find("input[type='file']").val().split('/').pop().split('\\').pop();
 	
-	$(ele).html(f);
+	$div = $("<div/>",{
+			html: f
+			});
+			
+	$(ele).html($div);
+	
+	$(ele).click(function(){
+		app.hideUpload(f);
+	});
 	
 }
 
-
+app.hideUpload = function(n){
+	
+	$(".sheets").each(function(d, h){
+		
+		if( $(this).attr("id") === n)
+			$(this).show();
+		else
+			$(this).hide();
+	});
+}
 
 
 

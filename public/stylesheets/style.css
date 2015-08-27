@@ -26,6 +26,7 @@ a {
     position: relative;
     top: 0;
     left: 0;
+    min-height: 600px;
     height: 80%;
     width: 84%;
     float:left;
@@ -131,17 +132,21 @@ th {
     overflow: auto;
 }
 
-.container-right div{
+.container-right > div{
 	background: #ccc;
 	height: 100px;		
     border: 1px solid black;
+}
+
+.container-right > div > div{
+	margin: 40px;
 }
 
 .container-right div:HOVER{
 	background: #eee;
 }
 
-.container-right div form{
+.container-right > div > form{
 	margin: 40px 10px 10px 15px;
 }
 
